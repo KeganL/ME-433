@@ -45,17 +45,17 @@ OBJECTDIR=build/${CND_CONF}/${IMAGE_TYPE}
 DISTDIR=dist/${CND_CONF}/${IMAGE_TYPE}
 
 # Source Files Quoted if spaced
-SOURCEFILES_QUOTED_IF_SPACED=
+SOURCEFILES_QUOTED_IF_SPACED=HW1.c
 
 # Object Files Quoted if spaced
-OBJECTFILES_QUOTED_IF_SPACED=
-POSSIBLE_DEPFILES=
+OBJECTFILES_QUOTED_IF_SPACED=${OBJECTDIR}/HW1.o
+POSSIBLE_DEPFILES=${OBJECTDIR}/HW1.o.d
 
 # Object Files
-OBJECTFILES=
+OBJECTFILES=${OBJECTDIR}/HW1.o
 
 # Source Files
-SOURCEFILES=
+SOURCEFILES=HW1.c
 
 
 CFLAGS=
@@ -94,7 +94,19 @@ endif
 # ------------------------------------------------------------------------------------
 # Rules for buildStep: compile
 ifeq ($(TYPE_IMAGE), DEBUG_RUN)
+${OBJECTDIR}/HW1.o: HW1.c  nbproject/Makefile-${CND_CONF}.mk
+	@${MKDIR} "${OBJECTDIR}" 
+	@${RM} ${OBJECTDIR}/HW1.o.d 
+	@${RM} ${OBJECTDIR}/HW1.o 
+	@${FIXDEPS} "${OBJECTDIR}/HW1.o.d" $(SILENT) -rsi ${MP_CC_DIR}../  -c ${MP_CC}  $(MP_EXTRA_CC_PRE) -g -D__DEBUG -D__MPLAB_DEBUGGER_PK3=1 -fframe-base-loclist  -x c -c -mprocessor=$(MP_PROCESSOR_OPTION)  -MMD -MF "${OBJECTDIR}/HW1.o.d" -o ${OBJECTDIR}/HW1.o HW1.c     
+	
 else
+${OBJECTDIR}/HW1.o: HW1.c  nbproject/Makefile-${CND_CONF}.mk
+	@${MKDIR} "${OBJECTDIR}" 
+	@${RM} ${OBJECTDIR}/HW1.o.d 
+	@${RM} ${OBJECTDIR}/HW1.o 
+	@${FIXDEPS} "${OBJECTDIR}/HW1.o.d" $(SILENT) -rsi ${MP_CC_DIR}../  -c ${MP_CC}  $(MP_EXTRA_CC_PRE)  -g -x c -c -mprocessor=$(MP_PROCESSOR_OPTION)  -MMD -MF "${OBJECTDIR}/HW1.o.d" -o ${OBJECTDIR}/HW1.o HW1.c     
+	
 endif
 
 # ------------------------------------------------------------------------------------
