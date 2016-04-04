@@ -53,13 +53,29 @@ int main() {
     // disable JTAG to get pins back
     DDPCONbits.JTAGEN = 0;
     
-    // do your TRIS and LAT commands here
     
+    //dedicate A4 (Pin 12) to the LED and B4 (Pin 11) to a pushbutton
+    //blinking LED, at 1kHz
+    //stops when you push and hold the user pushbutton 
+    //continues when you release the pushbutton.
+    
+    // do your TRIS and LAT commands here
+    TRISBbits.TRISB4 = 1; //PB Pin is an input
+    TRISAbits.TRISA4 = 0; //LED Pin is an output
+    LATAbits.LATA4 = 1; //set LED Pin high
+    
+
     __builtin_enable_interrupts();
     
     while(1) {
 	    // use _CP0_SET_COUNT(0) and _CP0_GET_COUNT() to test the PIC timing
 		// remember the core timer runs at half the CPU speed
+        _CP0_SET_COUNT(0);
+        while(_CP0_GET_COUNT()<12000){;}
+        LATAbits.LATA4 = !LATAbits.LATA4;
+        while(PORTBbits.RB4 == 0){
+            LATAbits.LATA4 = 0;
+        }
     }
     
     
