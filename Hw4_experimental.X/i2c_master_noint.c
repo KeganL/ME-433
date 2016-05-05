@@ -58,8 +58,8 @@ void i2c_master_stop(void) {          // send a STOP:
 }
 
 void init_exp(void){
-    write_exp(EXPADD,0xF0,0x00); 
-    write_exp(EXPADD,0x00,0x0A); 
+    setExpander(EXPADD,0xF0,0x00); 
+    setExpander(EXPADD,0x00,0x0A); 
 }
 void setExpander(unsigned char addr, unsigned char data, unsigned char regist){
    
@@ -90,17 +90,17 @@ unsigned char getExpander(unsigned char addr,unsigned char regist){
 void i2c_master_write(int pin, int val){
     unsigned char out = 0x01;
     LATAbits.LATA4 = 0; 
-    unsigned char current = read_exp(EXPADD,0x09);
+    unsigned char current = getExpander(EXPADD,0x09);
 
     //unsigned char test = read_exp(0x09);
     out = out << pin;
     //LATAbits.LATA4 = 1; 
     if (val == 1){
-        write_exp(EXPADD,current|out,0x0A);
+        setExpander(EXPADD,current|out,0x0A);
         //LATAbits.LATA4 = 1;
     }
     else if (val == 0){
-        write_exp(EXPADD,current&(~out),0x0A);
+        setExpander(EXPADD,current&(~out),0x0A);
         LATAbits.LATA4 = 1;
     }
 
@@ -112,7 +112,7 @@ unsigned char i2c_master_read(int pin){
     unsigned char data;
 
     out = out<<pin;
-    data = read_exp(EXPADD,0x09);
+    data = getExpander(EXPADD,0x09);
     
     data = (data&out)>>pin;
     //if (data==1){

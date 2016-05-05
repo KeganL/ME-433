@@ -3,29 +3,36 @@
 #define XYZ 2000 // I2CBRG = [1/(2*Fsck) - PGD]*Pblck - 2
 
 unsigned char i2c_master_read(int pin) {
-    char read_master;
-    i2c_master_start();
-    i2c_master_send((SLAVE_ADDRESS << 1) | 0);
-    i2c_master_send(pin);
-    i2c_master_restart();           
-    i2c_master_send((SLAVE_ADDRESS << 1) | 1);
-    read_master = i2c_master_recv();
-    i2c_master_ack(1);
-    i2c_master_stop();
-    return read_master;
+    unsigned char out = 0x01;
+    unsigned char data;
+    out = out<<pin;
+    data = getExpander(SLAVE_ADDRESS,0x09);
+    data = (data&out)>>pin;
+    return data;
 }
 
 void i2c_master_write(int pin, int write) {
-    i2c_master_start();
-    i2c_master_send((SLAVE_ADDRESS << 1) | 0); // writing
-    i2c_master_send(pin);
-    i2c_master_send(write);
-    i2c_master_stop();
+    unsigned char out = 0x01;
+    LATAbits.LATA4 = 0; 
+    unsigned char current = getExpander(SLAVE_ADDRESS,0x09);
+    out = out << pin;
+    if (write == 1){
+        setExpander(SLAVE_ADDRESS,current|out,0x0A);
+    }
+    else if (write == 0){
+        setExpander(SLAVE_ADDRESS,current&(~out),0x0A);
+        LATAbits.LATA4 = 1;
+    }
+
+   
 }
+
 void i2c_master_setup(void) {
-  I2C2BRG = XYZ;            // I2CBRG = [1/(2*Fsck) - PGD]*Pblck - 2
-                                    // look up PGD for your PIC32
-  I2C2CONbits.ON = 1;               // turn on the I2C1 module
+    ANSELBbits.ANSB2 = 0;
+    ANSELBbits.ANSB3 = 0;
+    I2C2BRG = XYZ; // I2CBRG = [1/(2*Fsck) - PGD]*Pblck - 2
+    // look up PGD for your PIC32
+    I2C2CONbits.ON = 1; // turn on the I2C1 module
 }
 
 // Start a transmission on the I2C bus

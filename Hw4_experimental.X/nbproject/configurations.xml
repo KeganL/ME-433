@@ -6,6 +6,7 @@
                    projectFiles="true">
       <itemPath>i2c_master_noint.h</itemPath>
       <itemPath>pin_exp.h</itemPath>
+      <itemPath>PIC32_INIT.h</itemPath>
     </logicalFolder>
     <logicalFolder name="LinkerScript"
                    displayName="Linker Files"

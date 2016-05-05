@@ -5,7 +5,6 @@
                    displayName="Header Files"
                    projectFiles="true">
       <itemPath>PIC_INIT.h</itemPath>
-      <itemPath>SPI.h</itemPath>
       <itemPath>i2c_master.h</itemPath>
       <itemPath>PIN_EXP.h</itemPath>
     </logicalFolder>
@@ -17,7 +16,6 @@
                    displayName="Source Files"
                    projectFiles="true">
       <itemPath>main.c</itemPath>
-      <itemPath>SPI.c</itemPath>
       <itemPath>i2c_master.c</itemPath>
       <itemPath>PIN_EXP.c</itemPath>
     </logicalFolder>

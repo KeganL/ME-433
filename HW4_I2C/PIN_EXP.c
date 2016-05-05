@@ -1,4 +1,5 @@
 #include "PIN_EXP.h"
+#include "i2c_master.h"
 void initExpander(void)
 {
     setExpander(SLAVE_ADDRESS,0xF0,0x00); 
