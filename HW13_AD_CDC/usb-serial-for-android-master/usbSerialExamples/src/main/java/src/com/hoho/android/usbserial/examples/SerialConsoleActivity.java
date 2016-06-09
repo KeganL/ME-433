@@ -28,6 +28,7 @@ import android.hardware.usb.UsbDeviceConnection;
 import android.hardware.usb.UsbManager;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.WindowManager;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.ScrollView;
@@ -96,6 +97,7 @@ public class SerialConsoleActivity extends Activity {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.serial_console);
+        getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
         mTitleTextView = (TextView) findViewById(R.id.demoTitle);
         mDumpTextView = (TextView) findViewById(R.id.consoleText);
         mScrollView = (ScrollView) findViewById(R.id.demoScroller);
@@ -169,6 +171,13 @@ public class SerialConsoleActivity extends Activity {
                 showStatus(mDumpTextView, "DSR - Data Set Ready", sPort.getDSR());
                 showStatus(mDumpTextView, "RI  - Ring Indicator", sPort.getRI());
                 showStatus(mDumpTextView, "RTS - Request To Send", sPort.getRTS());
+
+                int i = 104;
+                String sendString = String.valueOf(i) + '\n';
+                try {
+                    sPort.write(sendString.getBytes(),10); // 10 is the timeout
+                }
+                catch (IOException e) {}
 
             } catch (IOException e) {
                 Log.e(TAG, "Error setting up device: " + e.getMessage(), e);
