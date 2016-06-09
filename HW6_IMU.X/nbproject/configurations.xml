@@ -6,6 +6,7 @@
                    projectFiles="true">
       <itemPath>PIC_INIT.h</itemPath>
       <itemPath>i2c_master.h</itemPath>
+      <itemPath>IMU.h</itemPath>
     </logicalFolder>
     <logicalFolder name="LinkerScript"
                    displayName="Linker Files"
@@ -15,6 +16,8 @@
                    displayName="Source Files"
                    projectFiles="true">
       <itemPath>i2c_master.c</itemPath>
+      <itemPath>main.c</itemPath>
+      <itemPath>IMU.c</itemPath>
     </logicalFolder>
     <logicalFolder name="ExternalFiles"
                    displayName="Important Files"
@@ -30,7 +33,7 @@
         <targetDevice>PIC32MX250F128B</targetDevice>
         <targetHeader></targetHeader>
         <targetPluginBoard></targetPluginBoard>
-        <platformTool>ICD3PlatformTool</platformTool>
+        <platformTool>PICkit3PlatformTool</platformTool>
         <languageToolchain>XC32</languageToolchain>
         <languageToolchainVersion>1.40</languageToolchainVersion>
         <platform>4</platform>
