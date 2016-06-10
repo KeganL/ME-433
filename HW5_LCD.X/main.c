@@ -32,15 +32,19 @@ int main() {
     //text input
     LCD_clearScreen(BLACK);
     
-    int x = 5;
-    int y = 10;
+    int x = 28;
+    int y = 32;
     
     int xscale = 15;
     int yscale = 10;
     char data[100];
-    sprintf(data, "Hello");
+    sprintf(data, "Hello world");
     LCD_drawArray(x, y, RED, data);
-    sprintf(data, " 1337");
-    LCD_drawArray(x + 25, y, GREEN, data);
+    sprintf(data, " %d", 1337);
+    LCD_drawArray(x + 55, y, GREEN, data);
+    sprintf(data, "!");
+    LCD_drawArray(x + 80, y, CYAN, data);
+    
+    
     
 }

@@ -32,9 +32,9 @@ int main() {
 
     // initialize IMU
     initIMU();
-    if (WHOAMI() != 0b0110100) {
-        LATAbits.LATA4 = 1;
-    }
+//    if (WHOAMI() != 0b01101001) {
+//        LATAbits.LATA4 = 1;
+//    }
 
     // Set up Peripheral Timer2, OC1 and OC2
     T2CONbits.TCKPS = 0b011; // Timer2 prescaler N = 8
@@ -57,17 +57,24 @@ int main() {
 
     __builtin_enable_interrupts();
 
-    char len = 6;
-    unsigned char accel_data[len];
+    char length = 6;
+    unsigned char accel_data[length];
     short x_accel, y_accel;
 
     while (1) {
 
         _CP0_SET_COUNT(0);
 
-        i2c_multi(SLV_ADDR, OUTX_L_XL, accel_data, len);
+        i2c_multi(IMU_ADDRESS, OUTX_L_XL, accel_data, length);
         x_accel = (accel_data[1] << 8) | accel_data[0];
         y_accel = (accel_data[3] << 8) | accel_data[2];
+        
+        if (x_accel > 10){
+            LATAbits.LATA4 = 1;
+        }
+        else{
+            LATAbits.LATA4 = 0;
+        }
 
         OC1RS = x_accel * 3000 / 16384 + 2999;
         OC2RS = y_accel * 3000 / 16384 + 2999;
