@@ -32,8 +32,8 @@ int main() {
 
     // initialize IMU
     initIMU();
-    if (WHOAMI() != 0b01101000) {
-        LATAINV = 10000;
+    if (WHOAMI() != 0b0110100) {
+        LATAbits.LATA4 = 1;
     }
 
     // Set up Peripheral Timer2, OC1 and OC2
@@ -65,7 +65,7 @@ int main() {
 
         _CP0_SET_COUNT(0);
 
-        i2c_multi(IMU_ADDRESS, OUTX_L_XL, accel_data, len);
+        i2c_multi(SLV_ADDR, OUTX_L_XL, accel_data, len);
         x_accel = (accel_data[1] << 8) | accel_data[0];
         y_accel = (accel_data[3] << 8) | accel_data[2];
 

@@ -1,6 +1,7 @@
 #ifndef I2C_MASTER_H
 #define I2C_MASTER_H
 #define IMU_ADDRESS (char) 0b1101011
+#define SLV_ADDR (char) 0b0100000
 
 // Header file for i2c_master.c
 // helps implement use I2C2 as a master without using interrupts
